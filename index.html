@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed Fazil - Data Scientist</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        :root {
+            --primary: #F26B0F;
+            --bg-dark: #F5F0CD;
+            --text-light: #000209;
+            --text-dark: #01040d;
+            --card-bg: #FADA7A;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Enhanced Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 218, 122,.5);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 10px 30px -10px rgba(2,12,27,0.7);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 30px;
+            position: relative;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '▹';
+            color: var(--primary);
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(108, 161, 47, 0.1), transparent 50%);
+            pointer-events: none;
+        }
+
+        section {
+            margin-bottom: 50px; /* Adjust this value as needed */
+        }
+
+        section:last-of-type {
+            margin-bottom: 0; /* Ensures the last section doesn't have extra margin */
+        }
+
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        #skills {
+            margin-bottom: 50px; /* Space below Skills section */
+        }
+
+        #education {
+            margin-top: 50px; /* Space above Education section */
+        }
+
+
+        .hero-text h1 {
+            color: var(--primary);
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .hero-text h2 {
+            color: var(--text-light);
+            font-size: 72px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--text-light), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text h3 {
+            color: var(--text-dark);
+            font-size: 48px;
+            margin-bottom: 30px;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            max-width: 540px;
+            margin-bottom: 30px;
+        }
+
+        /* Enhanced Profile Image */
+        .hero-image {
+            position: relative;
+        }
+
+        .profile-frame {
+            width: 320px;
+            height: 320px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-frame:hover {
+            transform: translate(-8px, -8px);
+        }
+
+        .profile-frame::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: -15px;
+            bottom: -15px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .profile-frame:hover::before {
+            transform: translate(8px, 8px);
+        }
+
+        .profile-img {
+            width: 320px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 8px;
+            position: relative;
+            /* filter: grayscale(100%); */
+            transition: all 0.3s ease;
+        }
+
+        .profile-img:hover {
+            filter: none;
+        }
+
+        /* Enhanced Project Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(100, 255, 218, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-title {
+            color: var(--text-light);
+            font-size: 24px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .project-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .project-card:hover .project-title::after {
+            width: 100px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .project-tech span {
+            color: var(--primary);
+            font-size: 14px;
+            padding: 5px 12px;
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .project-tech span:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            background: rgba(17, 34, 64, 0.8);
+        }
+
+        .skill-item i {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .skill-item span {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        /* Enhanced Contact Section */
+        .contact {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .contact-title {
+            color: var(--primary);
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .contact-heading {
+            color: var(--text-light);
+            font-size: 48px;
+            margin-bottom: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust column width */
+            gap: 20px; /* Space between grid items */
+            margin-top: 20px; /* Space between the title and grid */
+        }
+
+        .education-card {
+            background: #FADA7A; /* Optional: Background color for cards */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .resume-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .resume-button {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #0e0101;
+            background-color: rgb(250, 218, 122);
+            border-radius: 5px;
+            border: none;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .resume-button i {
+            margin-right: 10px; /* Space between the icon and text */
+            font-size: 18px; /* Adjust icon size */
+        }
+
+        .resume-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .resume-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--card-bg);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .skills-sec {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap; /* Allows items to wrap to the next row */
+        }
+        
+        .figure {
+            width: 120px;
+            background-color: lightblue;
+            text-align: center;
+            box-sizing: border-box;
+            margin:0;
+            padding:0;
+            overflow:hidden;
+        }
+
+        .figure img{
+            -webkit-transform:scale(1);
+            transform:scale(1);
+            -webkit-transition:.3s ease-in-out;
+            transition:.3s ease-in-out;
+            display:block;
+            width:100%;
+        }
+        .figure:hover img{
+            -webkit-transform:scale(1.3);
+            transform:scale(1.3);
+        }
+
+        a.project-card {
+            text-decoration: none; /* Removes underline */
+            color: inherit; /* Inherits color from parent element */
+            cursor: pointer; /* Ensures the hand cursor appears */
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h2 {
+                font-size: 48px;
+            }
+
+            .hero-text h3 {
+                font-size: 32px;
+            }
+
+            .hero-image {
+                display: flex;
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">Mohammed Fazil</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#education">Education</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text fade-in">
+                <h1>Hi, my name is</h1>
+                <h2>Mohammed Fazil N</h2>
+                <h3>Data Science Innovator</h3>
+                <p>I'm a Data Science Intern specializing in building predictive models and data visualization tools. Currently, I'm focused on creating AI-driven solutions at Luminar Technolab.</p>
+            </div>
+            <div class="hero-image fade-in">
+                <div class="profile-frame">
+                    <img src="https://i.ibb.co/qYNrDY0/photo-2024-03-18-14-33-48.jpg" alt="Mohammed Fazil" class="profile-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- About Me Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="about-content fade-in">
+                <p>Hello! I'm Mohammed Fazil, a B.Tech graduate in Mechatronics from APJ Abdul Kalam Technological University. With a solid foundation in engineering, I am deeply passionate about harnessing the power of Artificial Intelligence (AI) and Machine Learning (ML) to solve complex, real-world challenges. My background in Mechatronics has instilled a strong problem-solving mindset, which I now apply to data science and AI projects.</p>
+
+                </p>Throughout my journey, I have developed hands-on experience in data analysis, predictive modeling, machine learning algorithms, and deep learning techniques. I aim to leverage these skills to create innovative solutions, drive data-driven decision-making, and contribute to impactful AI-driven projects in diverse industries.</p>
+                    
+                </p>I'm constantly seeking opportunities to expand my knowledge in AI and ML, with a focus on practical applications that bring value to organizations and help solve pressing societal issues.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="skills" style="margin-top: 50px;">
+        <div class="container" style ="margin-bottom: 30px;">
+            <h2 class="section-title fade-in">Technologies I Have Worked!</h2>
+                <div class="skills-sec">
+                    <div class="figure">
+                        <img alt="" src="https://www.focaloid.com/wp-content/uploads/2021/09/Python.jpg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                    <div class="figure">
+                        <img alt="" src="https://i.imghippo.com/files/Nls1886rw.jpg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                    <div class="figure">
+                        <img alt="" src="https://logosandtypes.com/wp-content/uploads/2024/02/numpy.svg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                    <div class="figure">
+                        <img alt="" src="https://miro.medium.com/v2/resize:fit:1400/0*RWkQ0Fziw792xa0S" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                    <div class="figure">
+                        <img alt="" src="https://user-images.githubusercontent.com/315810/92254613-279c8000-ee9f-11ea-9b73-5622a7d95f3f.png" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                    <div class="figure">
+                        <img alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM1HorGnBjp9URQZH5Mrlbm3ls29QWU3s8fTYnydsmO5i0BAvgVS533WBemBv-Oa0LOqE&usqp=CAU" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+
+                    <div class="figure">
+                        <img alt="" src="https://www.focaloid.com/wp-content/uploads/2021/09/Tensor-Flow-1.jpg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                    <div class="figure">
+                        <img alt="" src="https://marketplace.topdesk.com/wp-content/uploads/2018/02/powerbi-logo.png" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                    <div class="figure">
+                        <img alt="" src="https://pbs.twimg.com/profile_images/1664729160689029120/EmYSwAWM_400x400.jpg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                    <div class="figure">
+                        <img alt="" src="https://www.focaloid.com/wp-content/uploads/2021/09/PyTorch.jpg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+
+                    <div class="figure">
+                        <img alt="" src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/102017/logo_0.png?17TK91b1B6OvV2MFrCLfukw1c8oEaNr6&itok=vsanFiUj" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+
+                    <div class="figure">
+                        <img alt="" src="https://www.focaloid.com/wp-content/uploads/2021/09/Keras.jpg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                   
+
+                    <div class="figure">
+                        <img alt="" src="https://www.focaloid.com/wp-content/uploads/2021/09/Azure-machine-learning-studio.jpg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+
+                    <div class="figure">
+                        <img alt="" src="https://www.focaloid.com/wp-content/uploads/2021/09/Amazon-machine-learning.jpg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+
+                    <div class="figure">
+                        <img alt="" src="https://www.focaloid.com/wp-content/uploads/2021/09/Google-machine-learning.jpg" style="--smush-placeholder-width: 200px; --smush-placeholder-aspect-ratio: 200/200;">
+                    </div>
+                </div>
+        </div>
+    </section>
+
+
+
+    <section class="education" id="education" style="margin-top: 30px;">
+        <div class="container">
+            <h2 class="section-title fade-in">Education</h2>
+            <div class="education-grid fade-in">
+                <div class="education-card">
+                    <h3>B.Tech in Mechatronics</h3>
+                    <p>APJ Abdul Kalam Technological University</p>
+                    <p>2018 - 2022</p>
+                    <p>CGPA: 7/10</p>
+                </div>
+                <div class="education-card">
+                    <h3>Higher Secondary Education</h3>
+                    <p>IUHSS Parappur</p>
+                    <p>2016 - 2018</p>
+                    <p>Percentage: 75%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title fade-in">Some Things I've Built</h2>
+            <div class="project-grid">
+                <div class="project-card fade-in">
+                    <h3 class="project-title">Data Science Interviewer (Gemini AI)</h3>
+                    <p>AI-powered interview preparation tool using Google's Gemini API for personalized data science interview practice.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Gemini AI</span>
+                    </div>
+                </div>
+                <a class="project-card fade-in" href="https://www.linkedin.com/posts/mohammed-fazil-n_powerbi-datavisualization-cricketanalytics-activity-7271769795996348416-ek1v?utm_source=share&utm_medium=member_desktop">
+                    <h3 class="project-title">IPL Analysis Dashboard</h3>
+                    <p>Comprehensive IPL cricket analysis dashboard with interactive visualizations and performance metrics.</p>
+                    <div class="project-tech">
+                        <span>Power BI</span>
+                        <span>DAX</span>
+                        <span>Data Analysis</span>
+                    </div>
+                </a>
+                <div class="project-card fade-in">
+                    <h3 class="project-title">Predictive Machine Maintanance</h3>
+                    <p>ML classification model predicting equipment failures with 95% accuracy using sensor data.</p>
+                    <div class="project-tech">
+                        <span>Machine Learning</span>
+                        <span>Python</span>
+                        <span>Scikit-learn</span>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <h3 class="project-title">Walmart Sales Prediction</h3>
+                    <p>Regression model forecasting weekly sales using historical data and external factors.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>ML</span>
+                        <span>Pandas</span>
+                    </div>
+                </div>
+                <a class="project-card fade-in" href ="https://github.com/Fazil1244/Weather_App">
+                    <h3 class="project-title">Weather Prediction App</h3>
+                    <p>Interactive Streamlit web app for real-time weather forecasting using machine learning.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Streamlit</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="resume-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Download Resume</h2>
+            <div class="resume-buttons">
+                <a href="https://drive.google.com/file/d/14LIaxTwGPLdSgACii8ZbAhDHH3LANfOg/view?usp=sharing" class="resume-button fade-in">
+                    <i class="fas fa-download"></i> Resume
+                </a>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="contact" id="contact">
+        <div class="container fade-in">
+            <h3 class="contact-title">What's Next?</h3>
+            <h2 class="contact-heading">Get In Touch</h2>
+            <p>I'm currently looking for new opportunities in AI/ML Developper, Data Science, Business Analysis, and Data Analytics.</p>
+            <div class="social-links">
+                <a href="https://github.com/Fazil1244"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mohammed-fazil-n"><i class="fab fa-linkedin"></i></a>
+                <a href="https://wa.link/89bq2k"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:+917025356455"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Enhanced scroll behavior
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
