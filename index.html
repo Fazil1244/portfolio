@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohammed Fazil - Data Scientist</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
         
@@ -16,11 +18,11 @@
         }
 
         :root {
-            --primary: #F26B0F;
-            --bg-dark: #F5F0CD;
-            --text-light: #000209;
-            --text-dark: #01040d;
-            --card-bg: #FADA7A;
+            --primary: #283618;
+            --bg-dark: #606c38;
+            --text-light: #ddbea9;
+            --text-dark: #fefae0;
+            --card-bg: #283618;
         }
 
         body {
@@ -41,7 +43,7 @@
             width: 100%;
             top: 0;
             z-index: 100;
-            background: rgba(250, 218, 122,.5);
+            background: rgba(249, 248, 245, 0.5);
             backdrop-filter: blur(10px);
             padding: 20px 0;
             transition: all 0.3s ease;
@@ -147,6 +149,21 @@
         #education {
             margin-top: 50px; /* Space above Education section */
         }
+
+        .dynamic-text {
+            color: var(--text-dark);
+            font-weight: bold;
+            display: inline-block;
+            animation: fade-in-out 2.5s infinite; /* Matches the JS timing */
+        }
+
+        @keyframes fade-in-out {
+            0% { opacity: 0; transform: translateY(10px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+
 
 
         .hero-text h1 {
@@ -308,6 +325,120 @@
             transform: translateY(-2px);
         }
 
+        .project-card {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white; /* Ensure text is readable */
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5); /* Overlay to improve text readability */
+            z-index: 1;
+        }
+
+        .project-card > * {
+            position: relative;
+            z-index: 2;
+        }
+        .project-card .subheading {
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px);
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            width: 100%; /* Ensures the card takes the full width of its container */
+            height: 350px; /* Define a consistent height for the cards */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: scale(1.02);
+        }
+
+        .project-card .hover-overlay {
+            position: absolute;
+            top: -100%; /* Hidden above the card initially */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: top 1s ease; /* Slide-in animation */
+            z-index: 2;
+        }
+
+        .project-card:hover .hover-overlay {
+            top: 0; /* Slides down to reveal overlay */
+        }
+
+        .project-card .hover-overlay h3,
+        .project-card .hover-overlay p,
+        .project-card .hover-overlay .project-tech {
+            opacity: 0; /* Initially hidden */
+            transform: translateY(20px); /* Slight downward offset */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .project-card:hover .hover-overlay h3,
+        .project-card:hover .hover-overlay p,
+        .project-card:hover .hover-overlay .project-tech {
+            opacity: 1; /* Fade-in effect */
+            transform: translateY(0); /* Move to original position */
+        }
+
+        .project-card .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .project-tech span {
+            background-color: #f4b400; /* Example colors */
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-tech span:nth-child(2) {
+            background-color: #0f9d58;
+            color: #fff;
+        }
+
+        .project-tech span:nth-child(3) {
+            background-color: #4285f4;
+            color: #fff;
+        }
+
+        /* Show the subheading on hover */
+        .project-card:hover .subheading {
+            opacity: 1;
+            /* transform: translateY(0); */
+        }
+
         /* Enhanced Skills Grid */
         .skills-grid {
             display: grid;
@@ -384,7 +515,7 @@
         }
 
         .education-card {
-            background: #FADA7A; /* Optional: Background color for cards */
+            background: #283618; /*Optional: Background color for cards */
             padding: 20px;
             border-radius: 8px; /* Rounded corners */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
@@ -404,10 +535,10 @@
             padding: 10px 20px;
             font-size: 16px;
             color: #0e0101;
-            background-color: rgb(250, 218, 122);
+            background-color: #283618;
             border-radius: 5px;
             border: none;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s, transform 0.3s;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
@@ -425,11 +556,6 @@
             transform: translateY(0);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-
-
-
-
-
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
@@ -484,7 +610,16 @@
             color: inherit; /* Inherits color from parent element */
             cursor: pointer; /* Ensures the hand cursor appears */
         }
-
+        
+        .splide__slide {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
+        .splide__slide .project-card {
+            width: 100%;
+            margin: 10px;
+        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -521,16 +656,22 @@
                 <a href="#education">Education</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
+                <a href="https://drive.google.com/file/d/14LIaxTwGPLdSgACii8ZbAhDHH3LANfOg/view?usp=sharing" class="resume-button fade-in">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
             </div>
         </div>
     </nav>
+    
 
     <section class="hero">
         <div class="container hero-content">
             <div class="hero-text fade-in">
                 <h1>Hi, my name is</h1>
                 <h2>Mohammed Fazil N</h2>
-                <h3>Data Science Innovator</h3>
+                <h3>
+                    I am a <span class="dynamic-text">Data Scientist</span>
+                </h3>
                 <p>I'm a Data Science Intern specializing in building predictive models and data visualization tools. Currently, I'm focused on creating AI-driven solutions at Luminar Technolab.</p>
             </div>
             <div class="hero-image fade-in">
@@ -540,7 +681,7 @@
             </div>
         </div>
     </section>
-
+    
         <!-- About Me Section -->
     <section class="about" id="about">
         <div class="container">
@@ -556,6 +697,113 @@
     </section>
 
 
+    <section class="education" id="education" style="margin-top: 30px;">
+        <div class="container">
+            <h2 class="section-title fade-in">Education</h2>
+            <div class="education-grid fade-in">
+                <div class="education-card">
+                    <h3>B.Tech in Mechatronics</h3>
+                    <p>APJ Abdul Kalam Technological University</p>
+                    <p>2018 - 2022</p>
+                    <p>CGPA: 7/10</p>
+                </div>
+                <div class="education-card">
+                    <h3>Higher Secondary Education</h3>
+                    <p>IUHSS Parappur</p>
+                    <p>2016 - 2018</p>
+                    <p>Percentage: 75%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title fade-in">Some Things I've Built</h2>
+            <div class="splide">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <!-- Project Card 1 -->
+                        <li class="splide__slide">
+                            <a class="project-card" style="background-image: url('https://i0.wp.com/avenu.ai/wp-content/uploads/2024/11/AI-Interview-Bot-vs.-Traditional-Interviews-1.jpg');">
+                                <div class="hover-overlay">
+                                    <h3>Data Science Interviewer (Gemini AI)</h3>
+                                    <p>AI-powered interview preparation tool using Google's Gemini API for personalized data science interview practice.</p>
+                                    <div class="project-tech">
+                                        <span>Python</span>
+                                        <span>Gemini AI</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+    
+                        <!-- Project Card 2 -->
+                        <li class="splide__slide">
+                            <a class="project-card" style="background-image: url('https://i.ibb.co/KNJnFg7/DASHBOARD-2008-2024.png');">
+                                <div class="hover-overlay">
+                                    <h3>IPL Analysis Dashboard</h3>
+                                    <p>The IPL Power BI Dashboard visually analyzes data to provide insights into teams, players, and matches, featuring interactive elements like bar charts, line graphs, pie charts, and KPI cards. It serves IPL enthusiasts, analysts, and strategists in exploring trends, strengths, and areas for improvement.</p>
+                                    <div class="project-tech">
+                                        <span>Power BI</span>
+                                        <span>DAX</span>
+                                        <span>Data Analysis</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+    
+                        <!-- Project Card 3 -->
+                        <li class="splide__slide">
+                            <a class="project-card" style="background-image: url('https://smartdev.com/wp-content/uploads/2024/09/Utilisation-des-donnees-industrielles-1024x683.jpeg.webp');">
+                                <div class="hover-overlay">
+                                    <h3>Predictive Machine Maintenance</h3>
+                                    <p>ML classification model predicting equipment failures with 95% accuracy using sensor data.</p>
+                                    <div class="project-tech">
+                                        <span>Machine Learning</span>
+                                        <span>Python</span>
+                                        <span>Scikit-learn</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+    
+                        <!-- Project Card 4 -->
+                        <li class="splide__slide">
+                            <a class="project-card" style="background-image: url('https://images.startups.co.uk/wp-content/uploads/2023/05/sales-forecast.jpg?width=709&height=460&fit=crop');">
+                                <div class="hover-overlay">
+                                    <h3>Walmart Sales Prediction</h3>
+                                    <p>Regression model forecasting weekly sales using historical data and external factors.</p>
+                                    <div class="project-tech">
+                                        <span>Python</span>
+                                        <span>ML</span>
+                                        <span>Pandas</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+    
+                        <!-- Project Card 5 -->
+                        <li class="splide__slide">
+                            <a class="project-card" style="background-image: url('https://analyticsdrift.com/wp-content/uploads/2021/07/Developing-Artificial-Intelligence-Technology-To-Detect-Early-Signs-Of-Alzheimers-Disease.jpg');">
+                                <div class="hover-overlay">
+                                    <h3>Alzheimer's Prediction</h3>
+                                    <p>Machine learning model for predicting Alzheimer's using patient data and risk factors.</p>
+                                    <div class="project-tech">
+                                        <span>Python</span>
+                                        <span>ML</span>
+                                        <span>Pandas</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>    
+
+    
 
     <section class="skills" style="margin-top: 50px;">
         <div class="container" style ="margin-bottom: 30px;">
@@ -617,92 +865,6 @@
         </div>
     </section>
 
-
-
-    <section class="education" id="education" style="margin-top: 30px;">
-        <div class="container">
-            <h2 class="section-title fade-in">Education</h2>
-            <div class="education-grid fade-in">
-                <div class="education-card">
-                    <h3>B.Tech in Mechatronics</h3>
-                    <p>APJ Abdul Kalam Technological University</p>
-                    <p>2018 - 2022</p>
-                    <p>CGPA: 7/10</p>
-                </div>
-                <div class="education-card">
-                    <h3>Higher Secondary Education</h3>
-                    <p>IUHSS Parappur</p>
-                    <p>2016 - 2018</p>
-                    <p>Percentage: 75%</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-
-    <section class="projects" id="projects">
-        <div class="container">
-            <h2 class="section-title fade-in">Some Things I've Built</h2>
-            <div class="project-grid">
-                <div class="project-card fade-in">
-                    <h3 class="project-title">Data Science Interviewer (Gemini AI)</h3>
-                    <p>AI-powered interview preparation tool using Google's Gemini API for personalized data science interview practice.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Gemini AI</span>
-                    </div>
-                </div>
-                <a class="project-card fade-in" href="https://www.linkedin.com/posts/mohammed-fazil-n_powerbi-datavisualization-cricketanalytics-activity-7271769795996348416-ek1v?utm_source=share&utm_medium=member_desktop">
-                    <h3 class="project-title">IPL Analysis Dashboard</h3>
-                    <p>Comprehensive IPL cricket analysis dashboard with interactive visualizations and performance metrics.</p>
-                    <div class="project-tech">
-                        <span>Power BI</span>
-                        <span>DAX</span>
-                        <span>Data Analysis</span>
-                    </div>
-                </a>
-                <div class="project-card fade-in">
-                    <h3 class="project-title">Predictive Machine Maintanance</h3>
-                    <p>ML classification model predicting equipment failures with 95% accuracy using sensor data.</p>
-                    <div class="project-tech">
-                        <span>Machine Learning</span>
-                        <span>Python</span>
-                        <span>Scikit-learn</span>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <h3 class="project-title">Walmart Sales Prediction</h3>
-                    <p>Regression model forecasting weekly sales using historical data and external factors.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>ML</span>
-                        <span>Pandas</span>
-                    </div>
-                </div>
-                <a class="project-card fade-in" href ="https://github.com/Fazil1244/Weather_App">
-                    <h3 class="project-title">Weather Prediction App</h3>
-                    <p>Interactive Streamlit web app for real-time weather forecasting using machine learning.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Streamlit</span>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="resume-section">
-        <div class="container">
-            <h2 class="section-title fade-in">Download Resume</h2>
-            <div class="resume-buttons">
-                <a href="https://drive.google.com/file/d/14LIaxTwGPLdSgACii8ZbAhDHH3LANfOg/view?usp=sharing" class="resume-button fade-in">
-                    <i class="fas fa-download"></i> Resume
-                </a>
-            </div>
-        </div>
-    </section>
-    
-
     <section class="contact" id="contact">
         <div class="container fade-in">
             <h3 class="contact-title">What's Next?</h3>
@@ -726,6 +888,25 @@
             } else {
                 nav.classList.remove('scrolled');
             }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const roles = [
+                "Data Analyst",
+                "AI Developer",
+                "ML Developer",
+                "Power BI Developer",
+                "Data Scientist"
+            ];
+            const dynamicText = document.querySelector(".dynamic-text");
+            let index = 0;
+
+            
+
+            setInterval(() => {
+                dynamicText.textContent = roles[index];
+                index = (index + 1) % roles.length; // Loop back to the first role
+            }, 2500); // Matches the CSS animation timing
         });
 
         // Smooth scroll for navigation
@@ -755,6 +936,22 @@
 
         document.querySelectorAll('.fade-in').forEach(element => {
             observer.observe(element);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            new Splide('.splide', {
+                type: 'loop',
+                perPage: 3,
+                perMove: 1,
+                autoplay: true,
+                interval: 3000,
+                pauseOnHover: true,
+                breakpoints: {
+                    768: {
+                        perPage: 1
+                    }
+                }
+            }).mount();
         });
     </script>
 </body>
